@@ -86,7 +86,11 @@ def game_over():
     # program
     time.sleep(2)
 
+    # deactivating pygame library
+    # pygame.quit()
     start_menu()
+    # quit the program
+    # quit()
 
 
 def set_difficulty(help_button, difficulty):
