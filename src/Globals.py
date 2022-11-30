@@ -11,11 +11,16 @@ class Globals:
         self.counter = 0
         self.counter_j = 0
         self.name = ''
-        # rocks parameters
-        self.level1 = ([150, 150], [200, 200], [300, 300], [520, 140], [260, 250])
-        self.level2 = ([100, 100], [200, 200], [310, 270], [20, 30], [680, 90])
-        self.level3 = ([550, 150], [20, 20], [110, 300], [300, 150], [650, 80])
-        self.level4 = ([150, 150], [170, 400], [480, 190], [270, 420], [560, 180])
-        self.level5 = ([10, 10], [140, 370], [150, 190], [250, 210], [530, 330])
+        # rocks parameters are randomized
+        self.level1 = ([15*self.pixel, 15*self.pixel], [20*self.pixel, 20*self.pixel], [30*self.pixel, 30*self.pixel],
+                       [52*self.pixel, 14*self.pixel], [26*self.pixel, 25*self.pixel])
+        self.level2 = ([10*self.pixel, 10*self.pixel], [20*self.pixel, 20*self.pixel], [31*self.pixel, 27*self.pixel],
+                       [2*self.pixel, 3*self.pixel], [68*self.pixel, 9*self.pixel])
+        self.level3 = ([55*self.pixel, 15*self.pixel], [2*self.pixel, 2*self.pixel], [11*self.pixel, 30*self.pixel],
+                       [30*self.pixel, 15*self.pixel], [65*self.pixel, 8*self.pixel])
+        self.level4 = ([15*self.pixel, 15*self.pixel], [17*self.pixel, 40*self.pixel], [48*self.pixel, 19*self.pixel],
+                       [27*self.pixel, 42*self.pixel], [56*self.pixel, 18*self.pixel])
+        self.level5 = ([self.pixel, self.pixel], [14*self.pixel, 37*self.pixel], [15*self.pixel, 19*self.pixel],
+                       [25*self.pixel, 21*self.pixel], [53*self.pixel, 33*self.pixel])
         # snake parameters
         self.snake_speed = 15
