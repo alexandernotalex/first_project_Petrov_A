@@ -1,4 +1,4 @@
-import Globals
+from src import Globals
 import pygame
 import pygame.font
 import pygame_menu
