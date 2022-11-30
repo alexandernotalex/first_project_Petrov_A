@@ -3,6 +3,7 @@ class Globals:
         # window parameters
         self.window_x = 720
         self.window_y = 480
+        self.pixel = 10
         # game parameters
         self.score = 0
         self.level = 1
