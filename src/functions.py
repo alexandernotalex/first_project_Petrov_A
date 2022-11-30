@@ -7,23 +7,24 @@ import time
 
 
 globals = Globals.Globals()
-results = []
+# game.results = []
 
-# Initialising pygame
-pygame.font.init()
-pygame.init()
 
-# Initialise game window
-pygame.display.set_caption('Snake_game')
-game_window = pygame.display.set_mode((globals.window_x, globals.window_y))
-new_table = pygame.display.set_mode((globals.window_x, globals.window_y))
-font_table = pygame.font.SysFont('Arial', 40, bold=True)
-# FPS (frames per second) controller
-fps = pygame.time.Clock()
+class Game:
+    # initialising pygame
+    pygame.font.init()
+    pygame.init()
 
-# defining snake default position
-
-image = pygame.image.load('background.jpg')
+    # Initialise game window
+    pygame.display.set_caption('Snake_game')
+    
+    def __init__(self):
+        self.game_window = pygame.display.set_mode((globals.window_x, globals.window_y))
+        self.new_table = pygame.display.set_mode((globals.window_x, globals.window_y))
+        self.font_table = pygame.font.SysFont('Arial', 40, bold=True)
+        self.fps = pygame.time.Clock()
+        self.image = pygame.image.load('background.jpg')
+        self.results = []
 
 
 # displaying Score function
@@ -40,7 +41,7 @@ def show_score(color, font, size):
     score_rect = score_surface.get_rect()
 
     # displaying text
-    game_window.blit(score_surface, score_rect)
+    game.game_window.blit(score_surface, score_rect)
 
 
 # game over function
@@ -61,14 +62,14 @@ def game_over():
     game_over_rect.midtop = (globals.window_x / 2, globals.window_y / 4)
 
     # blit will draw the text on screen
-    game_window.blit(game_over_surface, game_over_rect)
+    game.game_window.blit(game_over_surface, game_over_rect)
     pygame.display.flip()
 
-    results.append([globals.name.get_value(), globals.score])
+    game.results.append([globals.name.get_value(), globals.score])
     globals.counter_j += 1
-    results.sort(key=lambda x: -x[1])
+    game.results.sort(key=lambda x: -x[1])
 
-    game_window.fill(pygame.Color('black'))
+    game.game_window.fill(pygame.Color('black'))
     # after 2 seconds we will quit the
     # program
     time.sleep(2)
@@ -86,11 +87,11 @@ def set_difficulty(help_button, difficulty):
 
 
 def records():
-    new_table.blit(image, (0, 0))
+    game.new_table.blit(game.image, (0, 0))
     for i in range(min(globals.counter, 5)):
-        output = str(results[i][0]) + ':' + str(results[i][1])
-        render_table = font_table.render(f' {output}', True, pygame.Color('red'))
-        new_table.blit(render_table, (100, 100 + 50 * i))
+        output = str(game.results[i][0]) + ':' + str(game.results[i][1])
+        render_table = game.font_table.render(f' {output}', True, pygame.Color('red'))
+        game.new_table.blit(render_table, (100, 100 + 50 * i))
     time.sleep(6)
 
 # drawing rocks
@@ -99,23 +100,23 @@ def records():
 def rooks():
     if globals.level == 1:
         for rook in globals.level1:
-            pygame.draw.rect(game_window, pygame.Color('red'), pygame.Rect(
+            pygame.draw.rect(game.game_window, pygame.Color('red'), pygame.Rect(
                 rook[0], rook[1], 10, 10))
     if globals.level == 2:
         for rook in globals.level2:
-            pygame.draw.rect(game_window, pygame.Color('red'), pygame.Rect(
+            pygame.draw.rect(game.game_window, pygame.Color('red'), pygame.Rect(
                 rook[0], rook[1], 20, 20))
     if globals.level == 3:
         for rook in globals.level3:
-            pygame.draw.rect(game_window, pygame.Color('red'), pygame.Rect(
+            pygame.draw.rect(game.game_window, pygame.Color('red'), pygame.Rect(
                 rook[0], rook[1], 30, 30))
     if globals.level == 4:
         for rook in globals.level4:
-            pygame.draw.rect(game_window, pygame.Color('red'), pygame.Rect(
+            pygame.draw.rect(game.game_window, pygame.Color('red'), pygame.Rect(
                 rook[0], rook[1], 40, 40))
     if globals.level == 5:
         for rook in globals.level5:
-            pygame.draw.rect(game_window, pygame.Color('red'), pygame.Rect(
+            pygame.draw.rect(game.game_window, pygame.Color('red'), pygame.Rect(
                 rook[0], rook[1], 50, 50))
 
 # check if snake have met a rock
@@ -202,13 +203,13 @@ def start_the_game():
 
         # Moving the snake
         if direction == 'UP':
-            snake_position[1] -= 10
+            snake_position[1] -= globals.pixel
         if direction == 'DOWN':
-            snake_position[1] += 10
+            snake_position[1] += globals.pixel
         if direction == 'LEFT':
-            snake_position[0] -= 10
+            snake_position[0] -= globals.pixel
         if direction == 'RIGHT':
-            snake_position[0] += 10
+            snake_position[0] += globals.pixel
 
         # Snake body growing mechanism
         # if fruits and snakes collide then scores will be
@@ -240,17 +241,17 @@ def start_the_game():
 
         fruit_spawn = True
         fruit_spawn_big = True
-        game_window.fill(pygame.Color('black'))
+        game.game_window.fill(pygame.Color('black'))
         rooks()
         for pos in snake_body:
-            pygame.draw.rect(game_window, pygame.Color('green'), pygame.Rect(
+            pygame.draw.rect(game.game_window, pygame.Color('green'), pygame.Rect(
                 pos[0], pos[1], 10, 10))
-        pygame.draw.rect(game_window, pygame.Color('white'), pygame.Rect(
+        pygame.draw.rect(game.game_window, pygame.Color('white'), pygame.Rect(
             fruit_position[0], fruit_position[1], 10, 10))
         if i % 5 == 0:
             k = 0
         if k == 0:
-            pygame.draw.rect(game_window, pygame.Color('purple'), pygame.Rect(
+            pygame.draw.rect(game.game_window, pygame.Color('purple'), pygame.Rect(
                 fruit_position_big[0], fruit_position_big[1], 20, 20))
         # Game Over conditions
         check_rook(snake_position)
@@ -270,7 +271,7 @@ def start_the_game():
         pygame.display.update()
 
         # Frame Per Second /Refresh Rate
-        fps.tick(globals.snake_speed)
+        game.fps.tick(globals.snake_speed)
 #        pass
 
 
@@ -284,6 +285,7 @@ def start_menu():
                       onchange=set_difficulty)
     menu.add.button('Play', start_the_game)
     menu.add.button('Quit', pygame_menu.events.EXIT)
-    menu.mainloop(game_window)
+    menu.mainloop(game.game_window)
 
 
+game = Game()
