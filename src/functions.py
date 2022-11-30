@@ -7,7 +7,6 @@ import time
 
 
 globals = Globals.Globals()
-# game.results = []
 
 
 class Game:
